@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const Page = () => {
   return (
-    <div>THis is the home Page</div>
+    <main>
+ <h1>landing Page</h1>
+    </main >
   )
 }
 

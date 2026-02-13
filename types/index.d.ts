@@ -5,19 +5,7 @@
 //   accountId: string;
 // };
 
-enum Subject {
-  maths = "maths",
-  language = "language",
-  science = "science",
-  history = "history",
-  coding = "coding",
-  geography = "geography",
-  economics = "economics",
-  finance = "finance",
-  business = "business",
-}
-
-type Companion = Models.DocumentList<Models.Document> & {
+type Mentor = Models.DocumentList<Models.Document> & {
   $id: string;
   name: string;
   subject: Subject;
@@ -26,7 +14,7 @@ type Companion = Models.DocumentList<Models.Document> & {
   bookmarked: boolean;
 };
 
-interface CreateCompanion {
+interface CreateMentor {
   name: string;
   subject: string;
   topic: string;
@@ -35,7 +23,7 @@ interface CreateCompanion {
   duration: number;
 }
 
-interface GetAllCompanions {
+interface GetAllMentors{
   limit?: number;
   page?: number;
   subject?: string | string[];
@@ -71,8 +59,8 @@ interface SavedMessage {
   content: string;
 }
 
-interface CompanionComponentProps {
-  companionId: string;
+interface MentorComponentProps {
+  mentorId: string;
   subject: string;
   topic: string;
   name: string;
