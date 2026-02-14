@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import NavItems from './NavItems'
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -24,7 +25,14 @@ const Navbar = () => {
                 {/* Desktop Navigation */}
                 <div className='hidden md:flex items-center gap-8'>
                     <NavItems />
-                    <p className='cursor-pointer'>Sign In</p>
+                    <SignedOut>
+                        <SignInButton mode="redirect">
+                            <button className='cursor-pointer btn-signin'>Sign In</button>
+                        </SignInButton>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
                 </div>
 
                 {/* Mobile Hamburger Button */}
@@ -56,7 +64,14 @@ const Navbar = () => {
                     <div onClick={toggleMobileMenu}>
                         <NavItems />
                     </div>
-                    <p className='cursor-pointer font-semibold'>Sign In</p>
+                    <SignedOut>
+                        <SignInButton mode="redirect">
+                            <button className='cursor-pointer font-semibold btn-signin flex justify-center' onClick={toggleMobileMenu}>Sign In</button>
+                        </SignInButton>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
                 </div>
             </div>
         </>
