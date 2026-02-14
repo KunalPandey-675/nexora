@@ -1,10 +1,14 @@
+import MentorForm from '@/components/MentorForm'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      new-mentor
-    </div>
+    <main className='md:w-2/3 items-center justify-center'>
+      <article className='w-full gap-4 flex flex-col'>
+        <h1>Mentor Form</h1>
+        <MentorForm />
+      </article>
+    </main>
   )
 }
 
