@@ -134,7 +134,7 @@ const Page = () => {
               >
                 <Users className="w-7 h-7 text-cta" />
               </motion.div>
-              <AnimatedCounter value={50000} suffix="+" />
+              <AnimatedCounter value={500} suffix="+" />
               <p className="text-gray-600 font-medium">Active Learners</p>
             </motion.div>
             
@@ -153,7 +153,7 @@ const Page = () => {
               >
                 <MessageSquare className="w-7 h-7 text-cta" />
               </motion.div>
-              <AnimatedCounter value={2000000} suffix="+" />
+              <AnimatedCounter value={2000} suffix="+" />
               <p className="text-gray-600 font-medium">Conversations</p>
             </motion.div>
             

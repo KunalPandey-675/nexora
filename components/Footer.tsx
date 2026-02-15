@@ -56,7 +56,7 @@ const Footer = () => {
               <span className="text-2xl font-bold">Nexora</span>
             </Link>
             <p className="text-gray-600 mb-6 leading-relaxed max-w-sm">
-              Transform your learning journey with AI-powered voice companions. Master any subject through natural conversations.
+              Transform your learning journey with AI-powered voice mentors. Master any subject through natural conversations.
             </p>
             
             {/* Contact Info */}

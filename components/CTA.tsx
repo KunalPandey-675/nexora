@@ -7,13 +7,13 @@ const Cta = () => {
         <section className="cta-section">
             <div className="cta-badge">Start learning your way.</div>
             <h2 className="text-3xl font-bold">
-                Build and Personalize Learning Companion
+                Build and Personalize Learning Mentor
             </h2>
             <p>Pick a name, subject, voice, & personality — and start learning through voice conversations that feel natural and fun.</p>
             <button className="btn-primary">
                 <BookPlus size={20} />
                 <Link href="/mentor/new-mentor">
-                    <p>Build a New Companion</p>
+                    <p>Build a New Mentor</p>
                 </Link>
             </button>
         </section>

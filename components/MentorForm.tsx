@@ -22,6 +22,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea";
+import { createMentor } from "@/lib/actions/mentor.actions"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { toast } from "sonner"
+import { Loader2 } from "lucide-react"
 
 export const subjects = [
   "maths",
@@ -41,6 +46,9 @@ const formSchema = z.object({
 })
 type FormValues = z.infer<typeof formSchema>
 const MentorForm = () => {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema) as Resolver<FormValues>,
     defaultValues: {
@@ -53,8 +61,23 @@ const MentorForm = () => {
     },
   })
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setIsSubmitting(true)
+    try {
+      const mentor = await createMentor(data);
+      if(mentor){
+        toast.success("Mentor created successfully! Redirecting...")
+        setTimeout(() => {
+          router.push(`/mentor/${mentor.id}`)
+        }, 1000)
+      } else {
+        toast.error("Failed to create mentor. Please try again.")
+        setIsSubmitting(false)
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.")
+      setIsSubmitting(false)
+    }
   }
   return (
     <Form {...form}>
@@ -206,7 +229,16 @@ const MentorForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full cursor-pointer">Submit</Button>
+        <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Creating mentor...
+            </>
+          ) : (
+            "Submit"
+          )}
+        </Button>
       </form>
     </Form>
   )
