@@ -35,6 +35,7 @@ export const subjects = [
   "history",
   "coding",
   "economics",
+  "other",
 ];
 const formSchema = z.object({
   name: z.string().min(2, { message: "Mentor name is required." }).max(50),
@@ -137,7 +138,7 @@ const MentorForm = () => {
               <FormControl>
                 <Textarea
                   className="input"
-                  placeholder="Briefly describe the topic or goal (e.g., 'Solve quadratic equations')"
+                  placeholder="Describe the topic or goal (e.g., 'Solve quadratic equations'). If 'Other', please specify the subject."
                   {...field}
                 />
               </FormControl>

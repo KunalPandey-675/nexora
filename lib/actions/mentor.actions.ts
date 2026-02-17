@@ -19,12 +19,12 @@ export const getAllMentors = async ({ limit = 10, page = 1, subject, topic }: Ge
 
     let query = supabase.from('mentors').select();
 
-    if(subject && topic) {
+    if (subject && topic) {
         query = query.ilike('subject', `%${subject}%`)
             .or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`)
-    } else if(subject) {
+    } else if (subject) {
         query = query.ilike('subject', `%${subject}%`)
-    } else if(topic) {
+    } else if (topic) {
         query = query.or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`)
     }
 
@@ -32,7 +32,18 @@ export const getAllMentors = async ({ limit = 10, page = 1, subject, topic }: Ge
 
     const { data: mentors, error } = await query;
 
-    if(error) throw new Error(error.message);
+    if (error) throw new Error(error.message);
 
     return mentors;
+}
+
+export const getMentor = async (id: string) => {
+    const supabase = createSupabaseClient()
+    const { data, error } = await supabase
+        .from('mentors')
+        .select()
+        .eq("id", id)
+    if (error) console.log('Error:', error)
+
+    return data?.[0]
 }
