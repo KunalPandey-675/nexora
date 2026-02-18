@@ -14,8 +14,11 @@ const Page = async () => {
     return (
         <main>
             <Cta />
-            <h1>Recent Sessions</h1>
-            <RecentlyCompleted mentors={recentSessionMentors} />
+            <section className="animate-fade-in-up animate-delay-100">
+                <h1 className="text-2xl font-bold tracking-tight text-text-primary mb-1">Recent Sessions</h1>
+                <p className="text-sm text-text-tertiary mb-4">Pick up where you left off</p>
+                <RecentlyCompleted mentors={recentSessionMentors} />
+            </section>
         </main >
     )
 }

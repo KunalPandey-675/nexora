@@ -230,14 +230,14 @@ const MentorForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
+        <Button type="submit" className="w-full cursor-pointer bg-cta text-white hover:bg-cta/90 rounded-xl shadow-[0_2px_8px_rgba(26,26,46,0.1)] hover:shadow-[0_4px_12px_rgba(26,26,46,0.15)] transition-all duration-300 font-medium" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Creating mentor...
             </>
           ) : (
-            "Submit"
+            "Create Mentor"
           )}
         </Button>
       </form>

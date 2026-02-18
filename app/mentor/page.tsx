@@ -16,20 +16,22 @@ const MentorsLibrary = async ({ searchParams }: SearchParams) => {
   return (
     <div>
       <main>
-        <section className="flex justify-between gap-4 max-sm:flex-col">
-          <h1>Mentors Library</h1>
-          <div className="flex gap-4">
+        <section className="flex justify-between gap-4 max-sm:flex-col items-end animate-fade-in">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-text-primary">Mentor Library</h1>
+            <p className="text-sm text-text-tertiary mt-0.5">Browse and discover AI mentors</p>
+          </div>
+          <div className="flex gap-3">
             <SubjectInput/>
             <SubjectFilter/>
-            </div>
+          </div>
         </section>
-        <section className="mentors-grid">
+        <section className="mentors-grid animate-fade-in-up animate-delay-100">
           {mentors.map((mentor) => (
             <MentorCard key={mentor.id} details={mentor} bookmarked={bookmarkedIds.includes(mentor.id)} />
           ))}
         </section>
       </main>
-
     </div>
   )
 }

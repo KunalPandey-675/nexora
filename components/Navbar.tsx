@@ -1,12 +1,19 @@
 "use client"
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import NavItems from './NavItems'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 10)
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -14,12 +21,12 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='navbar'>
-                <Link href='/' className='gap-1.5 flex items-center'>
+            <nav className={`navbar transition-all duration-300 ${scrolled ? 'shadow-[0_1px_3px_rgba(0,0,0,0.06)]' : ''}`}>
+                <Link href='/' className='gap-2 flex items-center group'>
                     <div className='flex items-center gap-2.5 cursor-pointer'>
-                        <Image src="/images/nexora.png" alt="logo" width={50} height={24} />
+                        <Image src="/images/nexora.png" alt="logo" width={46} height={22} className="transition-transform duration-300 group-hover:scale-105" />
                     </div>
-                    <h2 className='text-2xl font-bold'>Nexora</h2>
+                    <h2 className='text-xl font-bold tracking-tight text-text-primary'>Nexora</h2>
                 </Link>
                 
                 {/* Desktop Navigation */}
@@ -41,22 +48,28 @@ const Navbar = () => {
                     onClick={toggleMobileMenu}
                     aria-label='Toggle menu'
                 >
-                    <span className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                    <span className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                    <span className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                    <span className={`w-5 h-0.5 bg-text-primary rounded-full transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                    <span className={`w-5 h-0.5 bg-text-primary rounded-full transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                    <span className={`w-5 h-0.5 bg-text-primary rounded-full transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
                 </button>
             </nav>
             
+            {/* Mobile Menu Overlay */}
+            <div 
+                className={`md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                onClick={toggleMobileMenu}
+            />
+            
             {/* Mobile Menu */}
-            <div className={`md:hidden fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-lg transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`md:hidden fixed top-0 right-0 h-full w-72 bg-surface-raised z-50 shadow-[-8px_0_30px_rgba(0,0,0,0.08)] transform transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 {/* Close Button */}
                 <button 
-                    className='absolute top-6 right-6 w-8 h-8 flex items-center justify-center'
+                    className='absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-sunken transition-colors duration-200'
                     onClick={toggleMobileMenu}
                     aria-label='Close menu'
                 >
-                    <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                    <svg className='w-5 h-5 text-text-secondary' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M6 18L18 6M6 6l12 12' />
                     </svg>
                 </button>
                 

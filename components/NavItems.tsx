@@ -12,9 +12,18 @@ const navItems = [
 const NavItems = () => {
     const pathname = usePathname()
     return (
-        <nav className='flex md:flex-row flex-col md:items-center gap-4'>
+        <nav className='flex md:flex-row flex-col md:items-center gap-1'>
             {navItems.map(({ label, href }) => (
-                <Link href={href} key={label} className={cn(pathname === href && 'text-primary font-semibold')}>
+                <Link 
+                    href={href} 
+                    key={label} 
+                    className={cn(
+                        'px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+                        pathname === href 
+                            ? 'text-cta bg-surface-sunken' 
+                            : 'text-text-secondary hover:text-text-primary hover:bg-surface-sunken/60'
+                    )}
+                >
                     {label}
                 </Link>
             ))}

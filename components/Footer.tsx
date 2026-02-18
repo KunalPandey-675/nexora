@@ -36,39 +36,39 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { name: "Twitter", icon: Twitter, href: "https://twitter.com/nexora", color: "hover:text-blue-400" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/nexora", color: "hover:text-blue-600" },
-    { name: "GitHub", icon: Github, href: "https://github.com/nexora", color: "hover:text-gray-900" },
-    { name: "YouTube", icon: Youtube, href: "https://youtube.com/@nexora", color: "hover:text-red-600" },
+    { name: "Twitter", icon: Twitter, href: "https://twitter.com/nexora" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/nexora" },
+    { name: "GitHub", icon: Github, href: "https://github.com/nexora" },
+    { name: "YouTube", icon: Youtube, href: "https://youtube.com/@nexora" },
   ];
 
   return (
-    <footer className="bg-white border-t border-gray-100 mt-20">
-      <div className="container mx-auto px-4 pt-16 pb-8">
+    <footer className="bg-surface-raised border-t border-border-subtle mt-20">
+      <div className="container mx-auto px-6 pt-16 pb-8">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center">
-                <Mic2 className="w-6 h-6 text-cta-gold" />
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
+              <div className="w-9 h-9 rounded-lg bg-cta flex items-center justify-center shadow-[0_2px_8px_rgba(26,26,46,0.12)]">
+                <Mic2 className="w-5 h-5 text-cta-gold" />
               </div>
-              <span className="text-2xl font-bold">Nexora</span>
+              <span className="text-xl font-bold text-text-primary">Nexora</span>
             </Link>
-            <p className="text-gray-600 mb-6 leading-relaxed max-w-sm">
+            <p className="text-text-secondary text-sm mb-6 leading-relaxed max-w-sm">
               Transform your learning journey with AI-powered voice mentors. Master any subject through natural conversations.
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-gray-600">
-                <Mail className="w-4 h-4 text-cta" />
-                <a href="mailto:hello@nexora.ai" className="hover:text-cta transition-colors">
+            <div className="space-y-2.5">
+              <div className="flex items-center gap-2.5 text-text-secondary text-sm">
+                <Mail className="w-3.5 h-3.5 text-accent-blue" />
+                <a href="mailto:hello@nexora.ai" className="hover:text-text-primary transition-colors duration-200">
                   hello@nexora.ai
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <MapPin className="w-4 h-4 text-cta" />
+              <div className="flex items-center gap-2.5 text-text-secondary text-sm">
+                <MapPin className="w-3.5 h-3.5 text-accent-blue" />
                 <span>San Francisco, CA</span>
               </div>
             </div>
@@ -76,13 +76,13 @@ const Footer = () => {
 
           {/* Product Links */}
           <div>
-            <h3 className="font-bold text-gray-900 mb-4">Product</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-text-primary text-sm mb-4">Product</h3>
+            <ul className="space-y-2.5">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-cta transition-colors inline-block hover:translate-x-1 duration-200"
+                    className="text-text-secondary text-sm hover:text-text-primary transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -93,13 +93,13 @@ const Footer = () => {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-bold text-gray-900 mb-4">Resources</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-text-primary text-sm mb-4">Resources</h3>
+            <ul className="space-y-2.5">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-cta transition-colors inline-block hover:translate-x-1 duration-200"
+                    className="text-text-secondary text-sm hover:text-text-primary transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -110,13 +110,13 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h3 className="font-bold text-gray-900 mb-4">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-text-primary text-sm mb-4">Company</h3>
+            <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-cta transition-colors inline-block hover:translate-x-1 duration-200"
+                    className="text-text-secondary text-sm hover:text-text-primary transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -127,13 +127,13 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-bold text-gray-900 mb-4">Legal</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-text-primary text-sm mb-4">Legal</h3>
+            <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-cta transition-colors inline-block hover:translate-x-1 duration-200"
+                    className="text-text-secondary text-sm hover:text-text-primary transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -143,64 +143,36 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Newsletter Section */}
-        {/* <motion.div 
-          className="mb-12 p-8 rounded-3xl bg-gray-50 border border-gray-100"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
-            <p className="text-gray-600 mb-6">
-              Get the latest updates, learning tips, and exclusive content delivered to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta transition-all"
-              />
-              <button className="px-6 py-3 bg-cta text-white rounded-xl font-medium hover:bg-cta/90 transition-colors whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </motion.div> */}
-
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-100">
+        <div className="pt-8 border-t border-border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             {/* Copyright */}
-            <p className="text-gray-500 text-sm">
+            <p className="text-text-tertiary text-xs">
               © {currentYear} Nexora. All rights reserved.
             </p>
 
             {/* Social Links */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {socialLinks.map((social) => (
-                <motion.a
+                <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-600 transition-all ${social.color}`}
-                  whileHover={{ y: -3, backgroundColor: "#f3f4f6" }}
-                  whileTap={{ scale: 0.95 }}
+                  className="w-8 h-8 rounded-lg bg-surface-sunken flex items-center justify-center text-text-tertiary hover:text-text-primary hover:bg-surface-sunken/80 transition-all duration-200"
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
+                  <social.icon className="w-4 h-4" />
+                </a>
               ))}
             </div>
 
             {/* Additional Links */}
-            <div className="flex items-center gap-6 text-sm">
-              <Link href="/sitemap" className="text-gray-500 hover:text-cta transition-colors">
+            <div className="flex items-center gap-5 text-xs">
+              <Link href="/sitemap" className="text-text-tertiary hover:text-text-primary transition-colors duration-200">
                 Sitemap
               </Link>
-              <Link href="/status" className="text-gray-500 hover:text-cta transition-colors">
+              <Link href="/status" className="text-text-tertiary hover:text-text-primary transition-colors duration-200">
                 Status
               </Link>
             </div>

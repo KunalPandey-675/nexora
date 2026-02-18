@@ -96,21 +96,21 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
     }
 
     return (
-        <section className="flex flex-col h-200  gap-6 mb-10">
-            <section className="flex gap-8 max-sm:flex-col shrink-0">
+        <section className="flex flex-col h-200 gap-6 mb-10">
+            <section className="flex gap-6 max-sm:flex-col shrink-0">
                 <div className="mentor-section">
                     <div className="mentor-avatar" >
                         <div
                             className={
                                 cn(
-                                    'absolute transition-opacity duration-1000', callStatus === CallStatus.FINISHED || callStatus === CallStatus.INACTIVE ? 'opacity-1001' : 'opacity-0', callStatus === CallStatus.CONNECTING && 'opacity-100 animate-pulse'
+                                    'absolute transition-opacity duration-700', callStatus === CallStatus.FINISHED || callStatus === CallStatus.INACTIVE ? 'opacity-1001' : 'opacity-0', callStatus === CallStatus.CONNECTING && 'opacity-100 animate-pulse'
                                 )
                             }>
-                            <BookAudio size={100} />
+                            <BookAudio size={100} className="text-accent-blue" />
 
                         </div>
 
-                        <div className={cn('absolute transition-opacity duration-1000', callStatus === CallStatus.ACTIVE ? 'opacity-100' : 'opacity-0')}>
+                        <div className={cn('absolute transition-opacity duration-700', callStatus === CallStatus.ACTIVE ? 'opacity-100' : 'opacity-0')}>
                             <Lottie
                                 lottieRef={lottieRef}
                                 animationData={soundwaves}
@@ -119,27 +119,27 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                             />
                         </div>
                     </div>
-                    <p className="font-bold text-2xl">{name}</p>
+                    <p className="font-bold text-2xl text-text-primary">{name}</p>
                 </div>
 
                 <div className="user-section">
                     <div className="user-avatar">
-                        <Image src={userImage} alt={userName} width={130} height={130} className="rounded-lg" />
-                        <p className="font-bold text-2xl">
+                        <Image src={userImage} alt={userName} width={130} height={130} className="rounded-xl" />
+                        <p className="font-bold text-2xl text-text-primary">
                             {userName}
                         </p>
                     </div>
                     <button className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE}>
                         <Image src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'} alt="mic" width={36} height={36} />
-                        <p className="max-sm:hidden">
+                        <p className="max-sm:hidden text-sm text-text-secondary">
                             {isMuted ? 'Turn on microphone' : 'Turn off microphone'}
                         </p>
                     </button>
-                    <button className={cn('rounded-lg py-2 cursor-pointer transition-colors w-full text-white', callStatus === CallStatus.ACTIVE ? 'bg-red-700' : 'bg-primary', callStatus === CallStatus.CONNECTING && 'animate-pulse')} onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}>
+                    <button className={cn('rounded-xl py-2.5 cursor-pointer transition-all duration-300 w-full text-white font-medium text-sm shadow-sm', callStatus === CallStatus.ACTIVE ? 'bg-red-600 hover:bg-red-700 shadow-red-600/20' : 'bg-cta hover:bg-cta/90 shadow-cta/20', callStatus === CallStatus.CONNECTING && 'animate-pulse')} onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}>
                         {callStatus === CallStatus.ACTIVE
                             ? "End Session"
                             : callStatus === CallStatus.CONNECTING
-                                ? 'Connecting'
+                                ? 'Connecting...'
                                 : 'Start Session'
                         }
                     </button>
@@ -151,7 +151,7 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                     {messages.map((message, index) => {
                         if (message.role === 'assistant') {
                             return (
-                                <p key={index} className="max-sm:text-sm">
+                                <p key={index} className="max-sm:text-sm text-text-primary">
                                     {
                                         name
                                             .split(' ')[0]
@@ -160,7 +160,7 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                                 </p>
                             )
                         } else {
-                            return <p key={index} className="text-primary max-sm:text-sm">
+                            return <p key={index} className="text-accent-blue max-sm:text-sm">
                                 {userName}: {message.content}
                             </p>
                         }

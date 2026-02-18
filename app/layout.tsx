@@ -22,9 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ variables: { colorPrimary: '#fe5933' } }}>
+    <ClerkProvider appearance={{ variables: { colorPrimary: '#4a6fa5' } }}>
       <html lang="en">
-        <body className={`${bricolage.variable} antialiased`}>
+        <body className={`${bricolage.variable} antialiased selection:bg-accent-blue/20 selection:text-cta`}>
           <Navbar />
           {children}
           <Footer />

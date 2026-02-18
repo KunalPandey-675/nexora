@@ -21,26 +21,25 @@ const MentorSession = async ({ params }: MentorSessionPageProps) => {
 
   return (
     <main>
-      <article className="flex rounded-border justify-between p-6 max-md:flex-col">
-        <div className="flex items-center gap-2">
-          <div className="size-18 flex items-center justify-center rounded-lg max-md:hidden">
-            <BookAudio size={35} />
-
+      <article className="flex rounded-border justify-between p-6 max-md:flex-col animate-fade-in-up">
+        <div className="flex items-center gap-3">
+          <div className="size-14 flex items-center justify-center rounded-xl bg-accent-blue/10 max-md:hidden">
+            <BookAudio size={28} className="text-accent-blue" />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
-              <p className="font-bold text-2xl">
+              <p className="font-bold text-xl tracking-tight text-text-primary">
                 {name}
               </p>
               <div className="subject-badge max-sm:hidden">
                 {subject}
               </div>
             </div>
-            <p className="text-lg">{topic}</p>
+            <p className="text-sm text-text-secondary">{topic}</p>
           </div>
         </div>
-        <div className="items-start text-2xl max-md:hidden">
+        <div className="items-start text-lg text-text-tertiary font-medium max-md:hidden">
           {duration} mins
         </div>
       </article>

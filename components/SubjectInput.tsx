@@ -39,11 +39,11 @@ const SubjectInput = () => {
 
 
   return (
-    <div className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
-            <Search size={15} />
+    <div className="relative border border-border-default rounded-xl items-center flex gap-2 px-3 py-2 h-fit bg-surface-raised hover:border-accent-blue/40 focus-within:border-accent-blue focus-within:ring-2 focus-within:ring-accent-blue/20 transition-all duration-200">
+            <Search size={15} className="text-text-tertiary" />
             <input
-                placeholder="Search companions..."
-                className="outline-none"
+                placeholder="Search mentors..."
+                className="outline-none bg-transparent text-sm text-text-primary placeholder:text-text-tertiary"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
