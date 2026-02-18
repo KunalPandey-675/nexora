@@ -50,15 +50,15 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
-              <div className="w-9 h-9 rounded-lg bg-cta flex items-center justify-center shadow-[0_2px_8px_rgba(26,26,46,0.12)]">
-                <Mic2 className="w-5 h-5 text-cta-gold" />
+              <div>
+                <Image src="/images/nexora.png" alt=" logo" width={46} height={22} className="transition-transform duration-300 group-hover:scale-105" />
               </div>
               <span className="text-xl font-bold text-text-primary">Nexora</span>
             </Link>
             <p className="text-text-secondary text-sm mb-6 leading-relaxed max-w-sm">
               Transform your learning journey with AI-powered voice mentors. Master any subject through natural conversations.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-2.5">
               <div className="flex items-center gap-2.5 text-text-secondary text-sm">

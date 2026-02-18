@@ -28,7 +28,7 @@ export const getAllMentors = async ({ limit = 10, page = 1, subject, topic }: Ge
     } else if (topic) {
         query = query.or(`topic.ilike.%${topic}%,name.ilike.%${topic}%`)
     }
-
+    query = query.order('created_at', { ascending: false });
     query = query.range((page - 1) * limit, page * limit - 1);
 
     const { data: mentors, error } = await query;
@@ -107,56 +107,56 @@ export const newMentorPermissions = async () => {
 
 
 export const addBookmark = async (mentorId: string, path: string) => {
-  const { userId } = await auth();
-  if (!userId) return;
-  const supabase = createSupabaseClient();
-  const { data, error } = await supabase.from("bookmarks").insert({
-    mentor_id: mentorId,
-    user_id: userId,
-  });
-  if (error) {
-    throw new Error(error.message);
-  }
-  revalidatePath(path);
-  return data;
+    const { userId } = await auth();
+    if (!userId) return;
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase.from("bookmarks").insert({
+        mentor_id: mentorId,
+        user_id: userId,
+    });
+    if (error) {
+        throw new Error(error.message);
+    }
+    revalidatePath(path);
+    return data;
 };
 
 export const removeBookmark = async (mentorId: string, path: string) => {
-  const { userId } = await auth();
-  if (!userId) return;
-  const supabase = createSupabaseClient();
-  const { data, error } = await supabase
-    .from("bookmarks")
-    .delete()
-    .eq("mentor_id", mentorId)
-    .eq("user_id", userId);
-  if (error) {
-    throw new Error(error.message);
-  }
-  revalidatePath(path);
-  return data;
+    const { userId } = await auth();
+    if (!userId) return;
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+        .from("bookmarks")
+        .delete()
+        .eq("mentor_id", mentorId)
+        .eq("user_id", userId);
+    if (error) {
+        throw new Error(error.message);
+    }
+    revalidatePath(path);
+    return data;
 };
 
 export const getBookmarkedMentors = async (userId: string) => {
-  const supabase = createSupabaseClient();
-  const { data, error } = await supabase
-    .from("bookmarks")
-    .select(`mentors:mentor_id (*)`)
-    .eq("user_id", userId);
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data.map(({ mentors }) => mentors);
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+        .from("bookmarks")
+        .select(`mentors:mentor_id (*)`)
+        .eq("user_id", userId);
+    if (error) {
+        throw new Error(error.message);
+    }
+    return data.map(({ mentors }) => mentors);
 };
 
 export const getBookmarkedMentorIds = async (userId: string): Promise<string[]> => {
-  const supabase = createSupabaseClient();
-  const { data, error } = await supabase
-    .from("bookmarks")
-    .select("mentor_id")
-    .eq("user_id", userId);
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data.map(({ mentor_id }) => mentor_id);
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+        .from("bookmarks")
+        .select("mentor_id")
+        .eq("user_id", userId);
+    if (error) {
+        throw new Error(error.message);
+    }
+    return data.map(({ mentor_id }) => mentor_id);
 };

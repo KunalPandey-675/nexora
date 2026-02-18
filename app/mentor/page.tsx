@@ -16,7 +16,7 @@ const MentorsLibrary = async ({ searchParams }: SearchParams) => {
   return (
     <div>
       <main>
-        <section className="flex justify-between gap-4 max-sm:flex-col items-end animate-fade-in">
+        <section className="flex justify-between gap-4 max-sm:flex-col animate-fade-in">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-text-primary">Mentor Library</h1>
             <p className="text-sm text-text-tertiary mt-0.5">Browse and discover AI mentors</p>

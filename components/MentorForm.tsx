@@ -196,10 +196,10 @@ const MentorForm = () => {
                     />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="male">
+                    <SelectItem value="formal">
                       Formal
                     </SelectItem>
-                    <SelectItem value="female">
+                    <SelectItem value="casual">
                       Casual
                     </SelectItem>
                   </SelectContent>
