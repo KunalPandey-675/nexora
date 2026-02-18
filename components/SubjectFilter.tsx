@@ -18,6 +18,7 @@ export const subjects = [
   "history",
   "coding",
   "economics",
+  "other",
 ];
 const SubjectFilter = () => {
   const router = useRouter();

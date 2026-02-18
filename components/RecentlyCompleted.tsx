@@ -8,8 +8,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import Link from "next/link"
-import Image from "next/image"
 import { BookAudio, Clock } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface RecentlyCompletedProps {
     mentors: Mentor[]
@@ -17,9 +17,23 @@ interface RecentlyCompletedProps {
 
 
 const RecentlyCompleted = ({ mentors }: RecentlyCompletedProps) => {
+    if (!mentors || mentors.length === 0) {
+        return (
+            <article className="mentor-list">
+                <div className="flex flex-col items-center justify-center py-12 gap-4">
+                    <p className="text-xl text-gray-500">No mentor history yet</p>
+                    <Link href="/mentor/new-mentor" className="text-lg text-blue-600 hover:underline">
+                        <Button>
+                            Create a mentor now!!
+                        </Button>
+                    </Link>
+                </div>
+            </article>
+        )
+    }
+
     return (
         <>
-            <h1>Recently Completed</h1>
             <article className="mentor-list">
                 <Table>
                     <TableHeader>
@@ -53,7 +67,7 @@ const RecentlyCompleted = ({ mentors }: RecentlyCompletedProps) => {
                                     <div className="subject-badge w-fit ">
                                         {mentor.subject}
                                     </div>
-                                  
+
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex items-center gap-2 w-full justify-end">
@@ -61,7 +75,7 @@ const RecentlyCompleted = ({ mentors }: RecentlyCompletedProps) => {
                                             {mentor.duration} {' '}
                                             <span className="max-md:hidden">mins</span>
                                         </p>
-                                        <Clock size={16}/>
+                                        <Clock size={16} />
                                     </div>
                                 </TableCell>
 

@@ -6,7 +6,7 @@ import { vapi } from "@/lib/vapi.sdk";
 import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from '@/constants/soundwaves.json'
-// import { addToSessionHistory } from "@/lib/actions/mentor.actions";
+import { addToSessionHistory } from "@/lib/actions/mentor.actions";
 import { BookAudio } from 'lucide-react';
 
 enum CallStatus {
@@ -39,7 +39,7 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
 
         const onCallEnd = () => {
             setCallStatus(CallStatus.FINISHED);
-            // addToSessionHistory(mentorId)
+            addToSessionHistory(mentorId)
         }
 
         const onMessage = (message: Message) => {
@@ -96,7 +96,7 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
     }
 
     return (
-        <section className="flex flex-col h-[50rem]  gap-6 mb-10"> 
+        <section className="flex flex-col h-200  gap-6 mb-10">
             <section className="flex gap-8 max-sm:flex-col shrink-0">
                 <div className="mentor-section">
                     <div className="mentor-avatar" >
@@ -155,7 +155,7 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                                     {
                                         name
                                             .split(' ')[0]
-                                            .replace('/[.,]/g, ', '')   
+                                            .replace('/[.,]/g, ', '')
                                     }: {message.content}
                                 </p>
                             )
