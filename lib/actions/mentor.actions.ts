@@ -80,6 +80,18 @@ export const getUserMentors = async (userId: string) => {
     return data;
 }
 
+export const getUserPlan = async () => {
+    const { has } = await auth()
+
+    if (has({ plan: 'pro_learner' })) {
+        return { name: 'Pro Learner', isFinal: true }
+    } else if (has({ plan: 'core_learner' })) {
+        return { name: 'Core Learner', isFinal: false }
+    } else {
+        return { name: 'Basic Plan', isFinal: false }
+    }
+}
+
 export const newMentorPermissions = async () => {
     const { userId, has } = await auth()
     const supabase = createSupabaseClient()

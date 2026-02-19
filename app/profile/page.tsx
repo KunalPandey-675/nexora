@@ -6,20 +6,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { getBookmarkedMentors, getBookmarkedMentorIds, getUserMentors, getUserSessions } from "@/lib/actions/mentor.actions"
+import { Badge } from "@/components/ui/badge"
+import { getBookmarkedMentors, getBookmarkedMentorIds, getUserMentors, getUserSessions, getUserPlan } from "@/lib/actions/mentor.actions"
 import { currentUser } from "@clerk/nextjs/server"
-import { BookAudio, CircleCheckBig } from "lucide-react"
+import { BookAudio, CircleCheckBig, Sparkles } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 
 const Profile = async () => {
   const user = await currentUser()
   if (!user) redirect('/sign-in')
 
-  const mentors = await getUserMentors(user.id)
-  const sessionHistory = await getUserSessions(user.id)
-  const bookmarkedMentors = await getBookmarkedMentors(user.id)
-  const bookmarkedIds = await getBookmarkedMentorIds(user.id)
+  const [mentors, sessionHistory, bookmarkedMentors, bookmarkedIds, plan] = await Promise.all([
+    getUserMentors(user.id),
+    getUserSessions(user.id),
+    getBookmarkedMentors(user.id),
+    getBookmarkedMentorIds(user.id),
+    getUserPlan(),
+  ])
 
   return (
     <main className='lg:w-3/4'>
@@ -39,6 +44,23 @@ const Profile = async () => {
             <p className="text-sm text-text-tertiary">
               {user.emailAddresses[0].emailAddress}
             </p>
+            <div className="flex items-center gap-2 mt-1">
+              <Badge
+                variant={plan.name === 'Pro Learner' ? 'default' : 'secondary'}
+                className={plan.name === 'Pro Learner' ? 'bg-cta-gold text-black border-0' : ''}
+              >
+                {plan.name === 'Pro Learner' && <Sparkles size={10} />}
+                {plan.name}
+              </Badge>
+              {!plan.isFinal && (
+                <Link
+                  href="/subscriptions"
+                  className="text-xs font-medium text-accent-blue hover:underline underline-offset-2 transition-colors"
+                >
+                  Upgrade plan
+                </Link>
+              )}
+            </div>
           </div>
         </div>
         <div className="flex gap-3">
