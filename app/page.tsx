@@ -237,7 +237,7 @@ const Page = () => {
               <div className="aspect-video bg-cta/5">
                 <iframe
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/im_RhrmZs4o"
+                  src="https://www.youtube.com/embed/omT-vgCuxd4"
                   title="How Nexora Works"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
