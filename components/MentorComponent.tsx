@@ -96,18 +96,19 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
     }
 
     return (
-        <section className="flex flex-col h-200 gap-6 mb-10">
+        <section className="flex flex-col gap-6 mb-10">
+            {/* Session area */}
             <section className="flex gap-6 max-sm:flex-col shrink-0">
+                {/* Mentor visualizer */}
                 <div className="mentor-section">
-                    <div className="mentor-avatar" >
+                    <div className="mentor-avatar">
                         <div
-                            className={
-                                cn(
-                                    'absolute transition-opacity duration-700', callStatus === CallStatus.FINISHED || callStatus === CallStatus.INACTIVE ? 'opacity-1001' : 'opacity-0', callStatus === CallStatus.CONNECTING && 'opacity-100 animate-pulse'
-                                )
-                            }>
-                            <BookAudio size={100} className="text-accent-blue" />
-
+                            className={cn(
+                                'absolute transition-opacity duration-700',
+                                callStatus === CallStatus.FINISHED || callStatus === CallStatus.INACTIVE ? 'opacity-100' : 'opacity-0',
+                                callStatus === CallStatus.CONNECTING && 'opacity-100 animate-pulse'
+                            )}>
+                            <BookAudio className="text-accent-blue size-[100px] max-sm:size-[60px]" />
                         </div>
 
                         <div className={cn('absolute transition-opacity duration-700', callStatus === CallStatus.ACTIVE ? 'opacity-100' : 'opacity-0')}>
@@ -119,15 +120,13 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                             />
                         </div>
                     </div>
-                    <p className="font-bold text-2xl text-text-primary">{name}</p>
                 </div>
 
+                {/* User controls */}
                 <div className="user-section">
                     <div className="user-avatar">
                         <Image src={userImage} alt={userName} width={130} height={130} className="rounded-xl" />
-                        <p className="font-bold text-2xl text-text-primary">
-                            {userName}
-                        </p>
+                        <p className="font-bold text-2xl text-text-primary">{userName}</p>
                     </div>
                     <button className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE}>
                         <Image src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'} alt="mic" width={36} height={36} />
@@ -135,7 +134,16 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                             {isMuted ? 'Turn on microphone' : 'Turn off microphone'}
                         </p>
                     </button>
-                    <button className={cn('rounded-xl py-2.5 cursor-pointer transition-all duration-300 w-full text-white font-medium text-sm shadow-sm', callStatus === CallStatus.ACTIVE ? 'bg-red-600 hover:bg-red-700 shadow-red-600/20' : 'bg-cta hover:bg-cta/90 shadow-cta/20', callStatus === CallStatus.CONNECTING && 'animate-pulse')} onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}>
+                    <button
+                        className={cn(
+                            'rounded-xl py-3 cursor-pointer transition-all duration-300 w-full text-white font-semibold text-sm',
+                            callStatus === CallStatus.ACTIVE
+                                ? 'bg-red-600 hover:bg-red-700'
+                                : 'bg-cta hover:bg-cta/90',
+                            callStatus === CallStatus.CONNECTING && 'animate-pulse opacity-80 pointer-events-none'
+                        )}
+                        onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}
+                    >
                         {callStatus === CallStatus.ACTIVE
                             ? "End Session"
                             : callStatus === CallStatus.CONNECTING
@@ -146,23 +154,22 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
                 </div>
             </section>
 
+            {/* Transcript */}
             <section className="transcript">
                 <div className="transcript-message no-scrollbar">
                     {messages.map((message, index) => {
                         if (message.role === 'assistant') {
                             return (
                                 <p key={index} className="max-sm:text-sm text-text-primary">
-                                    {
-                                        name
-                                            .split(' ')[0]
-                                            .replace('/[.,]/g, ', '')
-                                    }: {message.content}
+                                    {name.split(' ')[0].replace(/[.,]/g, '')}: {message.content}
                                 </p>
                             )
                         } else {
-                            return <p key={index} className="text-accent-blue max-sm:text-sm">
-                                {userName}: {message.content}
-                            </p>
+                            return (
+                                <p key={index} className="text-accent-blue max-sm:text-sm">
+                                    {userName}: {message.content}
+                                </p>
+                            )
                         }
                     })}
                 </div>
