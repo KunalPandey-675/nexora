@@ -8,6 +8,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from '@/constants/soundwaves.json'
 import { addToSessionHistory } from "@/lib/actions/mentor.actions";
 import { BookAudio } from 'lucide-react';
+import { errorLogger } from '@/lib/errorLogger';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -52,7 +53,9 @@ const MentorComponent = ({ mentorId, subject, topic, name, userName, userImage, 
         const onSpeechStart = () => setIsSpeaking(true);
         const onSpeechEnd = () => setIsSpeaking(false);
 
-        const onError = (error: Error) => console.log('Error', error);
+        const onError = (error: Error) => {
+            errorLogger.error('Vapi AI error during mentor session', error, { mentorId, mentorName: name });
+        };
 
         vapi.on('call-start', onCallStart);
         vapi.on('call-end', onCallEnd);

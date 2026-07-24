@@ -2,13 +2,14 @@ import { getMentor } from "@/lib/actions/mentor.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import MentorComponent from "@/components/MentorComponent";
+import { Suspense } from "react";
+import { MentorSessionSkeleton } from "@/components/skeletons";
 
 interface MentorSessionPageProps {
   params: Promise<{ id: string }>;
 }
 
-const MentorSession = async ({ params }: MentorSessionPageProps) => {
-  const { id } = await params;
+async function MentorSessionContent({ id }: { id: string }) {
   const mentor = await getMentor(id);
   const user = await currentUser();
 
@@ -38,6 +39,16 @@ const MentorSession = async ({ params }: MentorSessionPageProps) => {
         userImage={user.imageUrl!}
       />
     </main>
+  )
+}
+
+const MentorSession = async ({ params }: MentorSessionPageProps) => {
+  const { id } = await params;
+
+  return (
+    <Suspense fallback={<MentorSessionSkeleton />}>
+      <MentorSessionContent id={id} />
+    </Suspense>
   )
 }
 

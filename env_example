@@ -1,0 +1,79 @@
+# ============================================================================
+# NEXORA ENVIRONMENT VARIABLES
+# ============================================================================
+# This is an example environment file. Copy this to .env.local and fill in 
+# your actual values from the respective service dashboards.
+# 
+# WARNING: Never commit .env.local to version control!
+# Always use this .env.example as a template for CI/CD and team onboarding.
+# ============================================================================
+
+# ============================================================================
+# CLERK AUTHENTICATION
+# ============================================================================
+# Clerk handles user authentication and subscription management
+# Get these values from: https://dashboard.clerk.com/last-active?path=api-keys
+#
+# Steps to obtain:
+# 1. Go to Clerk Dashboard → API Keys
+# 2. Copy the "Publishable key" (starts with pk_)
+# 3. Copy the "Secret key" (starts with sk_)
+# 4. Create an app instance in Clerk to get the domain
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CLERK_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Clerk Sign-In/Sign-Up page routes
+# These tell Clerk where to redirect users during auth flows
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
+# ============================================================================
+# SUPABASE DATABASE
+# ============================================================================
+# Supabase provides PostgreSQL database and real-time features
+# Get these values from: https://app.supabase.com/project/[PROJECT_ID]/settings/api
+#
+# Steps to obtain:
+# 1. Create a Supabase project at https://supabase.com
+# 2. Go to Settings → API
+# 3. Copy "Project URL" and "Publishable Key" (anon key is deprecated)
+# 
+# IMPORTANT: Use the new Publishable Key (starts with sb_publishable_)
+# The legacy anon key is deprecated and will be removed in late 2026
+
+# Supabase project URL
+# Format: https://[PROJECT_ID].supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+
+# Supabase Publishable Key (NEW - REQUIRED)
+# Starts with: sb_publishable_
+# This is the modern, secure way to authenticate with Supabase
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=sb_publishable_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Legacy Supabase Anon Key (DEPRECATED)
+# Only keep this if you have legacy code using it
+# This will be removed in future updates
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=your_legacy_anon_key_here
+
+# ============================================================================
+# VAPI AI - VOICE CONVERSATIONS
+# ============================================================================
+# Vapi AI provides real-time voice AI conversations
+# Get this value from: https://dashboard.vapi.ai
+#
+# Steps to obtain:
+# 1. Create account at https://vapi.ai
+# 2. Go to Dashboard → Settings → API Keys
+# 3. Create an API key and copy it
+# 4. For web integration, you may also need the Web Token
+
+# Vapi API Key for backend operations
+# Used for configuring and managing AI assistants
+NEXT_PUBLIC_VAPI_API_KEY=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+# Vapi Web Token (optional, if using web SDK)
+# Used for direct browser-to-Vapi connections
+# NEXT_PUBLIC_VAPI_WEB_TOKEN=your_vapi_web_token_here
+

@@ -1,11 +1,12 @@
 
 "use client"
-import { Bookmark, Bookmark as BookmarkFilled, Clock } from "lucide-react";
+import { Bookmark, Bookmark as BookmarkFilled, Clock, Loader2 } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { addBookmark, removeBookmark } from "@/lib/actions/mentor.actions";
+import { toast } from "sonner";
 interface MentorDetail {
   id: string;
   name: string;
@@ -25,14 +26,25 @@ import { useState } from "react";
 const MentorCard = ({ details, bookmarked: initialBookmarked = false }: MentorCardProps) => {
   const pathname = usePathname();
   const [bookmarked, setBookmarked] = useState(initialBookmarked);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleBookmark = async () => {
-    if (bookmarked) {
-      await removeBookmark(details.id, pathname);
-    } else {
-      await addBookmark(details.id, pathname);
+    setIsLoading(true);
+    try {
+      if (bookmarked) {
+        await removeBookmark(details.id, pathname);
+        toast.success("Removed from bookmarks");
+      } else {
+        await addBookmark(details.id, pathname);
+        toast.success("Added to bookmarks");
+      }
+      setBookmarked((prev) => !prev);
+    } catch (error) {
+      toast.error("Failed to update bookmark. Please try again.");
+      console.error("Bookmark error:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setBookmarked((prev) => !prev);
   };
 
   return (
@@ -43,9 +55,12 @@ const MentorCard = ({ details, bookmarked: initialBookmarked = false }: MentorCa
           <button 
             onClick={handleBookmark} 
             aria-label="Bookmark mentor" 
-            className="focus:outline-none p-1 rounded-lg hover:bg-surface-sunken transition-all duration-200"
+            disabled={isLoading}
+            className="focus:outline-none p-1 rounded-lg hover:bg-surface-sunken transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {bookmarked ? (
+            {isLoading ? (
+              <Loader2 width={18} height={18} className="text-text-secondary animate-spin" />
+            ) : bookmarked ? (
               <BookmarkFilled fill="var(--cta-gold)" stroke="var(--cta-gold)" width={18} height={18} />
             ) : (
               <Bookmark width={18} height={18} className="text-text-tertiary group-hover:text-text-secondary transition-colors duration-200" />

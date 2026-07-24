@@ -3,16 +3,33 @@ import SubjectFilter from "@/components/SubjectFilter"
 import SubjectInput from "@/components/SubjectInput"
 import { getAllMentors, getBookmarkedMentorIds } from "@/lib/actions/mentor.actions"
 import { auth } from "@clerk/nextjs/server"
+import { Suspense } from "react"
+import { MentorLibrarySkeleton } from "@/components/skeletons"
+
+async function MentorGrid({ subject, topic }: { subject?: string | string[]; topic?: string | string[] }) {
+  const { userId } = await auth()
+  
+  // Normalize subject and topic to strings (take first value if array)
+  const normalizedSubject = Array.isArray(subject) ? subject[0] : subject
+  const normalizedTopic = Array.isArray(topic) ? topic[0] : topic
+  
+  const mentors = await getAllMentors({ subject: normalizedSubject, topic: normalizedTopic })
+  const bookmarkedIds = userId ? await getBookmarkedMentorIds(userId) : []
+
+  return (
+    <section className="mentors-grid animate-fade-in-up animate-delay-100">
+      {mentors.map((mentor) => (
+        <MentorCard key={mentor.id} details={mentor} bookmarked={bookmarkedIds.includes(mentor.id)} />
+      ))}
+    </section>
+  )
+}
 
 const MentorsLibrary = async ({ searchParams }: SearchParams) => {
   const filters = await searchParams
   const subject = filters.subject ? filters.subject : ''
   const topic = filters.topic ? filters.topic : ''
 
-  const { userId } = await auth()
-  const mentors = await getAllMentors({ subject, topic })
-  const bookmarkedIds = userId ? await getBookmarkedMentorIds(userId) : []
-  // console.log('mentors', mentors)
   return (
     <div>
       <main>
@@ -26,11 +43,9 @@ const MentorsLibrary = async ({ searchParams }: SearchParams) => {
             <SubjectFilter/>
           </div>
         </section>
-        <section className="mentors-grid animate-fade-in-up animate-delay-100">
-          {mentors.map((mentor) => (
-            <MentorCard key={mentor.id} details={mentor} bookmarked={bookmarkedIds.includes(mentor.id)} />
-          ))}
-        </section>
+        <Suspense fallback={<MentorLibrarySkeleton count={6} />}>
+          <MentorGrid subject={subject} topic={topic} />
+        </Suspense>
       </main>
     </div>
   )

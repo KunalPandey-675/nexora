@@ -13,8 +13,10 @@ import { BookAudio, CircleCheckBig, Sparkles } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import { Suspense } from "react"
+import { DashboardSectionSkeleton } from "@/components/skeletons"
 
-const Profile = async () => {
+async function ProfileContent() {
   const user = await currentUser()
   if (!user) redirect('/sign-in')
 
@@ -27,7 +29,7 @@ const Profile = async () => {
   ])
 
   return (
-    <main className='lg:w-3/4'>
+    <>
       <section className="flex justify-between gap-6 max-sm:flex-col items-center animate-fade-in-up">
         <div className="flex gap-4 items-center">
           <Image 
@@ -100,6 +102,16 @@ const Profile = async () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+    </>
+  )
+}
+
+const Profile = async () => {
+  return (
+    <main className='lg:w-3/4'>
+      <Suspense fallback={<DashboardSectionSkeleton />}>
+        <ProfileContent />
+      </Suspense>
     </main>
   )
 }
